@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class InputManagment {
 
     Helper helper = new Helper();
+    CalculatorData calculator_data = new CalculatorData();
 
     /**
      * Validate the User Input
@@ -18,25 +19,28 @@ public class InputManagment {
     private String validate_user_input(String calc_string){
         calc_string = calc_string.replaceAll("\\s+", "");
         // Check if only supported operations are in the String
+        if (calc_string.equals(calculator_data.exit_string) || calc_string.equals(calculator_data.help_string)){
+            return calc_string;
+        }
         if (helper.find_match(calc_string, "[^\\+\\-\\*\\/\\d]")){
-            System.out.println("Not Valid operation or char in calculation");
+            System.out.println(calculator_data.invalid_char_error);
             return null;
         }
         // Check that operation starts with a number
         if (!helper.find_match(calc_string, "^\\d")){
-            System.out.println("calculation does not start with a number");
+            System.out.println(calculator_data.invalid_start_error);
             return null;
         }
         // Check that operation ends with a number
         if (!helper.find_match(calc_string, "\\d$")){
-            System.out.println("calculation does not end with a number");
+            System.out.println(calculator_data.invalid_end_error);
             return null;
         }
         return calc_string;
     }
 
     private String read_input(){
-        System.out.println("Please type what you want to calculate and hit enter");
+        System.out.println(calculator_data.start_calc_string);
         Scanner input = new Scanner(System.in).useDelimiter("\n");
         return input.next();
     }

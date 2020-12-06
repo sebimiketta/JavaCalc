@@ -15,4 +15,8 @@ public class OutputManagement {
             System.out.println(str);
         }
     }
+    public void print_result(String user_input, double result){
+        System.out.println("Result");
+        System.out.println(user_input + " = " + result);
+    }
 }
